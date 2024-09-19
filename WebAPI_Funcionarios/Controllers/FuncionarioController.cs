@@ -18,8 +18,15 @@ namespace WebAPI_Funcionarios.Controllers
         [HttpGet]
         public async Task<ActionResult<ServiceResponse<List<FuncionarioModel>>>> GetFuncionarios()
         {
-            return Ok(await _funcionarioInterface.GetFuncionarios());
+            return Ok(await _funcionarioInterface.GetFuncionario());
         }
+
+        [HttpPost]
+        public async Task<ActionResult<ServiceResponse<List<FuncionarioModel>>>> PostFuncionario(FuncionarioModel newFuncionario)
+        {
+            return Ok(await _funcionarioInterface.CreateFuncionario(newFuncionario));
+        }
+
 
     }
 }
