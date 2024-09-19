@@ -26,9 +26,20 @@ namespace WebAPI_Funcionarios.Service.FuncionarioService
             throw new NotImplementedException();
         }
 
-        public Task<ServiceResponse<List<FuncionarioModel>>> GetFuncionarios()
+        public async Task<ServiceResponse<List<FuncionarioModel>>> GetFuncionarios()
         {
-            throw new NotImplementedException();
+            ServiceResponse<List<FuncionarioModel>> serviceResponse = new ServiceResponse<List<FuncionarioModel>>();
+            try
+            {
+                serviceResponse.Dados = _context.Funcionarios.ToList();
+                if (serviceResponse.Dados.Count == 0)
+                {
+                    serviceResponse.Mensagem = "Nenhum dado encontrado!";
+                }
+            } catch (Exception ex) {
+                serviceResponse.Mensagem = ex.Message; serviceResponse.Sucesso = false;
+            }
+            return serviceResponse;
         }
 
         public Task<ServiceResponse<List<FuncionarioModel>>> InativaFuncionario(int id)
