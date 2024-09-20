@@ -24,14 +24,19 @@ namespace WebAPI_Funcionarios.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<ServiceResponse<FuncionarioModel>>> GetFuncionarioById(int id)
         {
-            ServiceResponse<FuncionarioModel> serviceResponse = await _funcionarioInterface.GetFuncionarioById(id);
-            return Ok(serviceResponse);
+            return Ok(await _funcionarioInterface.GetFuncionarioById(id));
         }
 
         [HttpPost]
         public async Task<ActionResult<ServiceResponse<List<FuncionarioModel>>>> PostFuncionario(FuncionarioModel newFuncionario)
         {
             return Ok(await _funcionarioInterface.CreateFuncionario(newFuncionario));
+        }
+
+        [HttpPut("inativaFuncionario")]
+        public async Task<ActionResult<ServiceResponse<List<FuncionarioModel>>>> InativaFuncionario(int id)
+        {
+            return Ok(await _funcionarioInterface.InativaFuncionario(id));
         }
 
 
