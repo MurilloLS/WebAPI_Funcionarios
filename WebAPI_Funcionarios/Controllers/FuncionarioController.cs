@@ -45,6 +45,12 @@ namespace WebAPI_Funcionarios.Controllers
             return Ok(await _funcionarioInterface.UpdateFuncionario(editedFuncionario));
         }
 
+        [HttpDelete]
+        public async Task<ActionResult<ServiceResponse<List<FuncionarioModel>>>> DeleteFuncionario(int id)
+        {
+            return Ok(await _funcionarioInterface.DeleteFuncionario(id));
+        }
+
 
     }
 }
