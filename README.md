@@ -1,4 +1,4 @@
-# 🚀 WebAPI Funcionários
+# 🚀 WebAPI Funcionários 🚀
 
 Esta é uma API RESTful para gerenciamento de funcionários, desenvolvida com ASP.NET Core. A API permite realizar operações CRUD (Criar, Ler, Atualizar e Excluir) em registros de funcionários, utilizando o **Repository Pattern** para uma melhor organização e separação de responsabilidades.
 
