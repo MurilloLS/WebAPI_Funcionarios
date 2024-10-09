@@ -18,7 +18,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("funcionariosApp", builder =>
+    options.AddPolicy("AllowAllOrigins", builder =>
     {
         builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
     });
@@ -33,7 +33,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseCors("funcionariosApp");
+app.UseCors("AllowAllOrigins");
 
 app.UseHttpsRedirection();
 
