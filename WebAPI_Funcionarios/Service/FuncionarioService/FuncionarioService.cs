@@ -53,7 +53,7 @@ namespace WebAPI_Funcionarios.Service.FuncionarioService
                 if(funcionario == null)
                 {
                     serviceResponse.Dados = null;
-                    serviceResponse.Mensagem = "Usuário não localizado!";
+                    serviceResponse.Mensagem = "Funcionário não localizado!";
                     serviceResponse.Sucesso = false;
                 }
 
@@ -79,7 +79,7 @@ namespace WebAPI_Funcionarios.Service.FuncionarioService
                 if (funcionario == null)
                 {
                     serviceResponse.Dados = null;
-                    serviceResponse.Mensagem = "Usuário não localizado!";
+                    serviceResponse.Mensagem = "Funcionário não localizado!";
                     serviceResponse.Sucesso = false;
                 }
 
@@ -122,7 +122,7 @@ namespace WebAPI_Funcionarios.Service.FuncionarioService
                 if(funcionario == null)
                 {
                     serviceResponse.Dados = null;
-                    serviceResponse.Mensagem = "Usuário não localizado!";
+                    serviceResponse.Mensagem = "Funcionário não localizado!";
                     serviceResponse.Sucesso = false;
                 }
 
@@ -135,6 +135,38 @@ namespace WebAPI_Funcionarios.Service.FuncionarioService
                 serviceResponse.Dados = _context.Funcionarios.ToList();
 
             }catch(Exception ex)
+            {
+                serviceResponse.Mensagem = ex.Message;
+                serviceResponse.Sucesso = false;
+            }
+            return serviceResponse;
+        }
+
+        public async Task<ServiceResponse<List<FuncionarioModel>>> AtivaFuncionario(int id)
+        {
+            ServiceResponse<List<FuncionarioModel>> serviceResponse = new ServiceResponse<List<FuncionarioModel>>();
+
+            try
+            {
+                FuncionarioModel funcionario = _context.Funcionarios.FirstOrDefault(x => x.Id == id);
+
+                if (funcionario == null)
+                {
+                    serviceResponse.Dados = null;
+                    serviceResponse.Mensagem = "Funcionário não localizado!";
+                    serviceResponse.Sucesso = false;
+                }
+
+                funcionario.Ativo = true;
+                funcionario.DataDeAlteracao = DateTime.Now.ToLocalTime();
+
+                _context.Funcionarios.Update(funcionario);
+                await _context.SaveChangesAsync();
+
+                serviceResponse.Dados = _context.Funcionarios.ToList();
+
+            }
+            catch (Exception ex)
             {
                 serviceResponse.Mensagem = ex.Message;
                 serviceResponse.Sucesso = false;
