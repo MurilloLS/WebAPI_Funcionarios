@@ -35,6 +35,7 @@ Esta é uma API RESTful para gerenciamento de funcionários, desenvolvida com AS
 
 ## 📂 Estrutura da API
 
+
 ### 🔗 Endpoints
 
 | Método | Endpoint                             | Descrição                                     |
