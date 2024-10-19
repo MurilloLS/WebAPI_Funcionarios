@@ -1,6 +1,6 @@
 # 🚀 WebAPI Funcionários 🚀
 
-Esta é uma API RESTful para gerenciamento de funcionários, desenvolvida com ASP.NET Core. A API permite realizar operações CRUD (Criar, Ler, Atualizar e Excluir) em registros de funcionários, utilizando o **Repository Pattern** para uma melhor organização e separação de responsabilidades.
+Esta é uma API RESTful para gerenciamento de funcionários, desenvolvida com ASP.NET Core. A API permite realizar operações CRUD (Criar, Ler, Atualizar e Excluir) em registros de funcionários, utilizando o **Repository Pattern** para uma melhor organização e separação de responsabilidades, e JWT para autenticação e autorização de acesso.
 
 ## 📑 Índice
 - [Funcionalidades](#-funcionalidades)
@@ -34,6 +34,7 @@ Esta é uma API RESTful para gerenciamento de funcionários, desenvolvida com AS
 - [Swagger](https://swagger.io/tools/swagger-ui/) para documentação da API
 
 ## 📂 Estrutura da API
+
 
 ### 🔗 Endpoints
 
@@ -84,6 +85,33 @@ public enum TurnoEnum
     Noite
 }
 ```
+
+## 🔐 Autenticação com JWT
+
+A API utiliza **JSON Web Token (JWT)** para autenticação e autorização de acesso a determinados endpoints. Abaixo estão as instruções de como configurar e utilizar o JWT.
+
+### 🚪 Endpoints de Autenticação
+
+| Método | Endpoint         | Descrição                        |
+|--------|------------------|----------------------------------|
+| POST   | `/api/auth/login`| Autentica o usuário e gera o JWT.|
+
+### Como usar JWT na API
+
+1. **Autenticação**:
+   - O cliente deve enviar uma solicitação `POST` ao endpoint `/api/auth/login` com as credenciais do usuário.
+   - Se a autenticação for bem-sucedida, a API retornará um token JWT.
+
+2. **Autorização**:
+   - Após receber o token, o cliente deve incluir o JWT no cabeçalho das solicitações subsequentes para acessar os endpoints protegidos.
+   - Exemplo de cabeçalho com o token JWT:
+     ```http
+     Authorization: Bearer {token}
+     ```
+
+3. **Proteção de Endpoints**:
+   - Alguns endpoints exigem autenticação para serem acessados. Esses endpoints estarão protegidos e retornarão erro `401 Unauthorized` caso o token JWT não seja fornecido ou seja inválido.
+
 
 ## ⚙️ Configuração
 
