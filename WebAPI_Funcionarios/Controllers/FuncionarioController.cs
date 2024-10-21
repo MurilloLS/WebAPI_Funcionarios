@@ -6,7 +6,7 @@ using WebAPI_Funcionarios.Service.FuncionarioService;
 
 namespace WebAPI_Funcionarios.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class FuncionarioController : ControllerBase
