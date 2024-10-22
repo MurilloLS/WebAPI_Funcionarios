@@ -49,9 +49,14 @@ public class FuncionarioControllerTests
     {
         // Arrange
         var funcionario = new FuncionarioModel { Id = 1, Nome = "John", Sobrenome = "Doe" };
-        var service = new Mock<IFuncionarioInterface>();
-        service.Setup(s => s.GetFuncionarioById(1)).ReturnsAsync(new ServiceResponse<FuncionarioModel> { Dados = funcionario });
-        var controller = new FuncionarioController(service.Object);
+        var mockService = new Mock<IFuncionarioInterface>();
+        mockService.Setup(s => s.GetFuncionarioById(1))
+            .ReturnsAsync(new ServiceResponse<FuncionarioModel>
+            {
+                Sucesso = true,
+                Dados = funcionario
+            });
+        var controller = new FuncionarioController(mockService.Object);
 
         // Act
         var result = await controller.GetFuncionarioById(1);
