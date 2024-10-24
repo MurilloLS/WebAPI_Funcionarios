@@ -90,4 +90,27 @@ public class FuncionarioControllerTests
         Assert.True(serviceResponse.Sucesso);
         Assert.Contains(newFuncionario, serviceResponse.Dados);
     }
+
+    [Fact]
+    public async Task InativaFuncionario_ReturnsOkResult_WhenFuncionarioIsInactivated()
+    {
+        // Arrange
+        var mockService = new Mock<IFuncionarioInterface>();
+        mockService.Setup(s => s.InativaFuncionario(1))
+            .ReturnsAsync(new ServiceResponse<List<FuncionarioModel>>
+            {
+                Sucesso = true,
+                Dados = new List<FuncionarioModel>()
+            });
+        var controller = new FuncionarioController(mockService.Object);
+
+        // Act
+        var result = await controller.InativaFuncionario(1);
+
+        // Assert
+        var okResult = Assert.IsType<OkObjectResult>(result.Result);
+        var serviceResponse = Assert.IsType<ServiceResponse<List<FuncionarioModel>>>(okResult.Value);
+        Assert.True(serviceResponse.Sucesso);
+    }
+
 }
