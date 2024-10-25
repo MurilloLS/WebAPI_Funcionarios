@@ -134,4 +134,28 @@ public class FuncionarioControllerTests
         var serviceResponse = Assert.IsType<ServiceResponse<List<FuncionarioModel>>>(okResult.Value);
         Assert.True(serviceResponse.Sucesso);
     }
+
+    [Fact]
+    public async Task UpdateFuncionario_ReturnsOkResult_WhenFuncionarioIsUpdated()
+    {
+        // Arrange
+        var editedFuncionario = new FuncionarioModel { Id = 1, Nome = "Murillo", Sobrenome = "Atualizado" };
+        var mockService = new Mock<IFuncionarioInterface>();
+        mockService.Setup(s => s.UpdateFuncionario(editedFuncionario))
+            .ReturnsAsync(new ServiceResponse<List<FuncionarioModel>>
+            {
+                Sucesso = true,
+                Dados = new List<FuncionarioModel> { editedFuncionario }
+            });
+        var controller = new FuncionarioController(mockService.Object);
+
+        // Act
+        var result = await controller.UpdateFuncionario(editedFuncionario);
+
+        // Assert
+        var okResult = Assert.IsType<OkObjectResult>(result.Result);
+        var serviceResponse = Assert.IsType<ServiceResponse<List<FuncionarioModel>>>(okResult.Value);
+        Assert.True(serviceResponse.Sucesso);
+        Assert.Contains(editedFuncionario, serviceResponse.Dados);
+    }
 }
