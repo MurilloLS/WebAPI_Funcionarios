@@ -158,4 +158,26 @@ public class FuncionarioControllerTests
         Assert.True(serviceResponse.Sucesso);
         Assert.Contains(editedFuncionario, serviceResponse.Dados);
     }
+
+    [Fact]
+    public async Task DeleteFuncionario_ReturnsOkResult_WhenFuncionarioIsDeleted()
+    {
+        // Arrange
+        var mockService = new Mock<IFuncionarioInterface>();
+        mockService.Setup(s => s.DeleteFuncionario(1))
+            .ReturnsAsync(new ServiceResponse<List<FuncionarioModel>>
+            {
+                Sucesso = true,
+                Dados = new List<FuncionarioModel>()
+            });
+        var controller = new FuncionarioController(mockService.Object);
+
+        // Act
+        var result = await controller.DeleteFuncionario(1);
+
+        // Assert
+        var okResult = Assert.IsType<OkObjectResult>(result.Result);
+        var serviceResponse = Assert.IsType<ServiceResponse<List<FuncionarioModel>>>(okResult.Value);
+        Assert.True(serviceResponse.Sucesso);
+    }
 }
