@@ -11,6 +11,8 @@ Esta é uma API RESTful para gerenciamento de funcionários, desenvolvida com AS
 - [Enumerações](#-enumerações)
   - [DepartamentoEnum](#departamentoenum)
   - [TurnoEnum](#turnoenum)
+- [Testes Unitários](#-testes-unitários)
+  - [Mocks e Isolamento](#mocks-e-isolamento)
 - [Configuração](#-configuração)
   - [Pré-requisitos](#-pré-requisitos)
   - [Como Executar](#-como-executar)
@@ -111,6 +113,20 @@ A API utiliza **JSON Web Token (JWT)** para autenticação e autorização de ac
 
 3. **Proteção de Endpoints**:
    - Alguns endpoints exigem autenticação para serem acessados. Esses endpoints estarão protegidos e retornarão erro `401 Unauthorized` caso o token JWT não seja fornecido ou seja inválido.
+
+
+## 🧪 Testes Unitários
+
+### Mocks e Isolamento
+
+Para garantir que os testes unitários da API sejam rápidos e independentes de dependências externas, como bancos de dados, utilizei **mocks**. *Mocks* são objetos simulados que imitam o comportamento de objetos reais, permitindo isolar a lógica testada sem interações reais com o sistema.
+
+Por exemplo, ao testar o método `GetFuncionarioById`, usei um *mock* do repositório de funcionários para simular o retorno de um funcionário, sem acessar o banco de dados real. Isso torna os testes mais rápidos e confiáveis, focando na lógica interna.
+
+### Principais Cenários Testados:
+- Testes para garantir que os métodos de CRUD retornem os resultados esperados.
+- Mocks de dependências externas (como repositórios).
+- Verificação de estados após operações (criação, atualização, exclusão de funcionários).
 
 
 ## ⚙️ Configuração
